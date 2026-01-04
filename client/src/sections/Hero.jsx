@@ -166,7 +166,7 @@ const Hero = () => {
               {/* Image container */}
               <div className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-dark-800">
                 <img
-                  src="/RUSHI.jpg"
+                  src="/rushii.jpg"
                   alt="Rushikesh Gaikwad - Full Stack Developer"
                   className="w-full h-full object-cover"
                 />

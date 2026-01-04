@@ -36,8 +36,8 @@ const fallbackProjects = [
     image: '/AiFinanceTracker.png',
     technologies: ['Next.js', 'OpenAI API', 'TypeScript', 'Prisma', 'Tailwind CSS'],
     category: 'fullstack',
-    liveUrl: 'https://ai-finance-tracker-ztyu.onrender.com',
-    githubUrl: 'https://github.com/gangaprasad29/Ai-Finance-Tracker-',
+    liveUrl: 'https://finance-tracker-sepia-zeta.vercel.app/',
+    githubUrl: 'https://github.com/Rushikesh1821/FinanceTracker',
     featured: true,
   },
 ];
