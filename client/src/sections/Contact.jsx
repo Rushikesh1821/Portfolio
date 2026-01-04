@@ -2,15 +2,30 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import { FiSend, FiCheck, FiAlertCircle, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
+import { IoLogoWhatsapp } from 'react-icons/io5';
+import { SiGmail } from 'react-icons/si';
 import { SectionWrapper } from '../components';
-import { fadeInLeft, fadeInRight, staggerItem } from '../animations/variants';
+import { fadeInLeft, fadeInRight, staggerItem, fadeInUp } from '../animations/variants';
+
+// Contact configuration - Update these with your actual details
+const CONTACT_CONFIG = {
+  whatsapp: {
+    phoneNumber: '919876543210', // Your WhatsApp number without + sign
+    defaultMessage: 'Hi, I found your portfolio and would like to connect with you.',
+  },
+  email: {
+    address: 'rushikesh@gmail.com', // Your Gmail address
+    subject: 'Portfolio Inquiry',
+    body: 'Hi, I visited your portfolio and would like to connect.',
+  },
+};
 
 const contactInfo = [
   {
     icon: FiMail,
     label: 'Email',
-    value: 'rushikesh@example.com',
-    href: 'mailto:rushikesh@example.com',
+    value: CONTACT_CONFIG.email.address,
+    href: `mailto:${CONTACT_CONFIG.email.address}`,
   },
   {
     icon: FiMapPin,
@@ -26,6 +41,32 @@ const contactInfo = [
   },
 ];
 
+// Quick contact buttons configuration
+const quickContactButtons = [
+  {
+    id: 'whatsapp',
+    icon: IoLogoWhatsapp,
+    label: 'Chat on WhatsApp',
+    href: `https://wa.me/${CONTACT_CONFIG.whatsapp.phoneNumber}?text=${encodeURIComponent(CONTACT_CONFIG.whatsapp.defaultMessage)}`,
+    hoverBg: 'hover:bg-green-500/20',
+    hoverBorder: 'hover:border-green-500/50',
+    hoverShadow: '0 0 30px rgba(37, 211, 102, 0.4)',
+    iconColor: 'text-green-500',
+    iconHoverColor: 'group-hover:text-green-400',
+  },
+  {
+    id: 'gmail',
+    icon: SiGmail,
+    label: 'Send Email',
+    href: `mailto:${CONTACT_CONFIG.email.address}?subject=${encodeURIComponent(CONTACT_CONFIG.email.subject)}&body=${encodeURIComponent(CONTACT_CONFIG.email.body)}`,
+    hoverBg: 'hover:bg-red-500/20',
+    hoverBorder: 'hover:border-red-500/50',
+    hoverShadow: '0 0 30px rgba(234, 67, 53, 0.4)',
+    iconColor: 'text-red-500',
+    iconHoverColor: 'group-hover:text-red-400',
+  },
+];
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -36,6 +77,7 @@ const Contact = () => {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [focusedField, setFocusedField] = useState(null);
+  const [hoveredButton, setHoveredButton] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -279,6 +321,64 @@ const Contact = () => {
               )}
             </motion.button>
           </form>
+
+          {/* Quick Contact Buttons - WhatsApp & Gmail */}
+          <motion.div
+            className="mt-10 pt-8 border-t border-dark-700/50"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <p className="text-center text-dark-400 text-sm mb-6">
+              Or reach out directly via
+            </p>
+            
+            <div className="flex items-center justify-center gap-6">
+              {quickContactButtons.map((button) => (
+                <div key={button.id} className="relative">
+                  {/* Tooltip */}
+                  <AnimatePresence>
+                    {hoveredButton === button.id && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute -top-12 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-dark-800 text-white text-xs font-medium rounded-lg whitespace-nowrap border border-dark-700 shadow-lg"
+                      >
+                        {button.label}
+                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-dark-800 border-r border-b border-dark-700 rotate-45" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Button */}
+                  <motion.a
+                    href={button.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-dark-800/50 border border-dark-700/50 rounded-full transition-all duration-300 ${button.hoverBg} ${button.hoverBorder}`}
+                    onMouseEnter={() => setHoveredButton(button.id)}
+                    onMouseLeave={() => setHoveredButton(null)}
+                    onFocus={() => setHoveredButton(button.id)}
+                    onBlur={() => setHoveredButton(null)}
+                    whileHover={{ 
+                      scale: 1.08,
+                      boxShadow: button.hoverShadow,
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    aria-label={button.label}
+                  >
+                    <button.icon 
+                      className={`w-6 h-6 sm:w-7 sm:h-7 ${button.iconColor} ${button.iconHoverColor} transition-colors duration-300`} 
+                    />
+                  </motion.a>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </SectionWrapper>
