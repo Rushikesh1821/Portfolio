@@ -4,7 +4,7 @@ import { SectionWrapper } from '../components';
 import { fadeInLeft, fadeInRight, staggerItem } from '../animations/variants';
 
 const aboutData = {
-  intro: `I'm a passionate Full Stack Developer currently in my final year of Computer Science Engineering. 
+  intro: `I'm a passionate Full Stack Developer currently in my Third year of Computer Science Engineering. 
     With a strong foundation in modern web technologies and a keen eye for design, I create digital 
     experiences that are both functional and visually appealing.`,
   
@@ -14,9 +14,9 @@ const aboutData = {
   
   education: {
     degree: 'B.Tech in Computer Science & Engineering',
-    university: 'ABC Institute of Technology',
-    year: '2022 - 2026',
-    cgpa: '8.5 CGPA',
+    university: 'Government College of Engineering, Chhatrapati Sambhajinagar',
+    year: '2023 - 2027',
+    cgpa: '8.0 CGPA',
   },
   
   goals: [

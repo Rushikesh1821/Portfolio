@@ -69,7 +69,7 @@ const Hero = () => {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4"
             >
               Hi, I'm{' '}
-              <span className="gradient-text">Rushikesh</span>
+              <span className="gradient-text">Rushikesh Gaikwad</span>
             </motion.h1>
 
             {/* Title */}
@@ -87,7 +87,7 @@ const Hero = () => {
               variants={heroTextReveal}
               className="text-dark-400 text-lg max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed"
             >
-              Final year CSE student passionate about building modern web applications
+              Third  year CSE student passionate about building modern web applications
               with clean code and exceptional user experiences. Specialized in the
               MERN stack and modern frontend technologies.
             </motion.p>

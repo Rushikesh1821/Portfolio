@@ -10,11 +10,11 @@ import { fadeInLeft, fadeInRight, staggerItem, fadeInUp } from '../animations/va
 // Contact configuration - Update these with your actual details
 const CONTACT_CONFIG = {
   whatsapp: {
-    phoneNumber: '919876543210', // Your WhatsApp number without + sign
+    phoneNumber: '(9545862915', // Your WhatsApp number without + sign
     defaultMessage: 'Hi, I found your portfolio and would like to connect with you.',
   },
   email: {
-    address: 'rushikesh@gmail.com', // Your Gmail address
+    address: 'rushigaikawad66@gmail.com', // Your Gmail address
     subject: 'Portfolio Inquiry',
     body: 'Hi, I visited your portfolio and would like to connect.',
   },

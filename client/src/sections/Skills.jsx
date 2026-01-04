@@ -18,6 +18,7 @@ import {
   SiVercel,
   SiHtml5,
   SiCss3,
+  
 } from 'react-icons/si';
 import { SectionWrapper, SkillCard } from '../components';
 import { staggerContainer, staggerItem } from '../animations/variants';
@@ -54,6 +55,7 @@ const skillCategories = [
       { name: 'Docker', icon: SiDocker, color: '#2496ED' },
       { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
       { name: 'Vercel', icon: SiVercel, color: '#ffffff' },
+      { name: 'Postman', icon: SiPostman, color: '#FF6C37' },
     ],
   },
 ];
