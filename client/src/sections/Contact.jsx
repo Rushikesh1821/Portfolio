@@ -30,14 +30,14 @@ const contactInfo = [
   {
     icon: FiMapPin,
     label: 'Location',
-    value: 'Mumbai, India',
+    value: 'Chhatrapati Sambhajinagar, India',
     href: null,
   },
   {
     icon: FiPhone,
     label: 'Phone',
-    value: '+91 98765 43210',
-    href: 'tel:+919876543210',
+    value: '+91 9545862915',
+    href: 'tel:+919545862915',
   },
 ];
 
@@ -209,7 +209,7 @@ const Contact = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                   className={inputClasses('name')}
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                 />
               </div>
 
@@ -230,7 +230,7 @@ const Contact = () => {
                   onBlur={() => setFocusedField(null)}
                   required
                   className={inputClasses('email')}
-                  placeholder="john@example.com"
+                  placeholder="email@example.com"
                 />
               </div>
             </div>

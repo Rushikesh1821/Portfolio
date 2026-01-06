@@ -1,12 +1,26 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiExternalLink, FiGithub, FiX } from 'react-icons/fi';
+import { FiExternalLink, FiGithub, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { overlayVariants, overlayContentVariants } from '../animations/variants';
 
 const ProjectCard = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Support both single image and multiple images
+  const images = Array.isArray(project.images) ? project.images : [project.image || project.images];
+  
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+  
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <>
@@ -23,8 +37,8 @@ const ProjectCard = ({ project }) => {
         {/* Image Container */}
         <div className="relative aspect-video overflow-hidden">
           <motion.img
-            src={project.image}
-            alt={project.title}
+            src={images[currentImageIndex]}
+            alt={`${project.title} - Image ${currentImageIndex + 1}`}
             className="w-full h-full object-cover"
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
@@ -36,6 +50,45 @@ const ProjectCard = ({ project }) => {
           {/* Loading skeleton */}
           {!imageLoaded && (
             <div className="absolute inset-0 bg-dark-700 animate-pulse" />
+          )}
+          
+          {/* Image Navigation Arrows - Show only if multiple images */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={prevImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-dark-900/80 text-white rounded-full hover:bg-dark-900 transition-colors z-10"
+                aria-label="Previous image"
+              >
+                <FiChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={nextImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-dark-900/80 text-white rounded-full hover:bg-dark-900 transition-colors z-10"
+                aria-label="Next image"
+              >
+                <FiChevronRight className="w-5 h-5" />
+              </button>
+              
+              {/* Image indicators */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentImageIndex(index);
+                    }}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === currentImageIndex
+                        ? 'bg-primary-500 w-6'
+                        : 'bg-white/50 hover:bg-white/75'
+                    }`}
+                    aria-label={`Go to image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </>
           )}
 
           {/* Hover Overlay */}
@@ -149,11 +202,53 @@ const ProjectCard = ({ project }) => {
                 <FiX className="w-5 h-5" />
               </button>
               
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full aspect-video object-cover"
-              />
+              {/* Modal Image Carousel */}
+              <div className="relative">
+                <img
+                  src={images[currentImageIndex]}
+                  alt={`${project.title} - Image ${currentImageIndex + 1}`}
+                  className="w-full aspect-video object-cover"
+                />
+                
+                {/* Modal Image Navigation */}
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-dark-900/90 text-white rounded-full hover:bg-dark-900 transition-colors"
+                      aria-label="Previous image"
+                    >
+                      <FiChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-dark-900/90 text-white rounded-full hover:bg-dark-900 transition-colors"
+                      aria-label="Next image"
+                    >
+                      <FiChevronRight className="w-6 h-6" />
+                    </button>
+                    
+                    {/* Modal Image indicators */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {images.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setCurrentImageIndex(index);
+                          }}
+                          className={`w-3 h-3 rounded-full transition-all ${
+                            index === currentImageIndex
+                              ? 'bg-primary-500 w-8'
+                              : 'bg-white/50 hover:bg-white/75'
+                          }`}
+                          aria-label={`Go to image ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
               
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-white mb-3">

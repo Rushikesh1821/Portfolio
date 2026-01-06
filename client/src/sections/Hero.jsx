@@ -98,7 +98,7 @@ const Hero = () => {
               className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
             >
               <motion.a
-                href="/resume.pdf"
+                href="/Resume_Rushikesh.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-2 px-8 py-4 text-base font-semibold text-white bg-gradient-to-r from-primary-600 to-blue-600 rounded-xl hover:from-primary-500 hover:to-blue-500 transition-all duration-300 shadow-lg shadow-primary-500/25"
@@ -127,7 +127,7 @@ const Hero = () => {
             >
               {[
                 { value: '2+', label: 'Years Experience' },
-                { value: '15+', label: 'Projects Built' },
+                { value: '5+', label: 'Projects Built' },
                 { value: '10+', label: 'Technologies' },
               ].map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
@@ -165,7 +165,7 @@ const Hero = () => {
               {/* Image container */}
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-dark-800">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                  src="/rushii.jpg"
                   alt="Rushikesh - Full Stack Developer"
                   className="w-full h-full object-cover"
                 />
@@ -221,14 +221,14 @@ const Hero = () => {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <span className="text-xs font-medium uppercase tracking-wider">Scroll Down</span>
+          {/* <span className="text-xs font-medium uppercase tracking-wider">Scroll Down</span>
           <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center pt-2">
             <motion.div
               className="w-1.5 h-1.5 bg-current rounded-full"
               animate={{ y: [0, 12, 0] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             />
-          </div>
+          </div> */}
         </motion.button>
       </motion.div>
     </section>

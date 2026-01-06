@@ -69,7 +69,7 @@ const About = () => {
           {/* Location */}
           <div className="flex items-center gap-3 p-4 bg-dark-800/30 rounded-xl">
             <FiMapPin className="w-5 h-5 text-primary-400" />
-            <span className="text-dark-300">Based in Mumbai, India</span>
+            <span className="text-dark-300">Based in Chhatrapati Sambhajinagar, India</span>
             <span className="ml-auto px-3 py-1 text-xs font-medium text-green-400 bg-green-500/10 rounded-full">
               Open to opportunities
             </span>

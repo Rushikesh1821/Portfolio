@@ -18,7 +18,7 @@ import {
   SiVercel,
   SiHtml5,
   SiCss3,
-  
+  SiPostman,
 } from 'react-icons/si';
 import { SectionWrapper, SkillCard } from '../components';
 import { staggerContainer, staggerItem } from '../animations/variants';
