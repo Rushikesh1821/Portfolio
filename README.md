@@ -2,7 +2,7 @@
 
 A fully professional, modern, production-ready personal portfolio website built with the MERN stack, featuring Framer Motion animations and a premium dark theme design.
 
-![Portfolio Preview](https://via.placeholder.com/800x400?text=Portfolio+Preview)
+![Portfolio Preview]([https://via.placeholder.com/800x400?text=Portfolio+Preview](https://portfolio-zeta-rouge-31.vercel.app/))
 
 ## ✨ Features
 
