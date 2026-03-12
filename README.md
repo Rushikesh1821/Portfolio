@@ -227,9 +227,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🤝 Contact
 
 **Rushikesh**
-- Email: rushikesh@example.com
-- LinkedIn: [linkedin.com/in/rushikesh](https://linkedin.com/in/rushikesh)
-- GitHub: [github.com/rushikesh](https://github.com/rushikesh)
+- Email: rushigaikawad66@gmail.com
 
 ---
 
