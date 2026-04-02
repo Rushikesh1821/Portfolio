@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
 import { FiSend, FiCheck, FiAlertCircle, FiMail, FiMapPin, FiPhone } from 'react-icons/fi';
 import { IoLogoWhatsapp } from 'react-icons/io5';
 import { SiGmail } from 'react-icons/si';
@@ -83,27 +82,29 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setStatus({ type: '', message: '' });
 
     try {
-      const response = await axios.post('/api/contact', formData);
-      
-      if (response.data.success) {
-        setStatus({
-          type: 'success',
-          message: response.data.message || 'Message sent successfully!',
-        });
-        setFormData({ name: '', email: '', subject: '', message: '' });
+      const subject = formData.subject || CONTACT_CONFIG.email.subject;
+      const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
+      const mailtoUrl = `mailto:${CONTACT_CONFIG.email.address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      if (typeof window !== 'undefined') {
+        window.location.href = mailtoUrl;
       }
+
+      setStatus({
+        type: 'success',
+        message: 'Your email app opened. Please send the pre-filled message to complete your inquiry.',
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       setStatus({
         type: 'error',
-        message:
-          error.response?.data?.message ||
-          'Failed to send message. Please try again.',
+        message: 'Could not open your email app. Please use the direct email button below.',
       });
     } finally {
       setIsSubmitting(false);

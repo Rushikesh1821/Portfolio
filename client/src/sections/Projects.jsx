@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
 import { SectionWrapper, ProjectCard } from '../components';
 import { staggerContainer, staggerItem } from '../animations/variants';
 
@@ -8,13 +7,23 @@ const categories = [
   { id: 'all', label: 'All Projects' },
   { id: 'fullstack', label: 'Full Stack' },
   { id: 'frontend', label: 'Frontend' },
-  { id: 'backend', label: 'Backend' },
 ];
 
 // Fallback projects in case backend is not available
 const fallbackProjects = [
   {
-    _id: '1',
+  _id: '1',
+    title: 'Official WINGS 2K26 Website ',
+    description: 'Developed the official website for WINGS 2K26, a national-level technical festival of Government College of Engineering, Chhatrapati Sambhajinagar. Built a full-stack application with responsive UI and backend APIs to manage event information and user interactions.',
+    images: ['/wings2k26.png'],
+    technologies: ['React', 'Node.js', 'PostgreSQL', 'Express'],  
+    category: 'fullstack',
+    liveUrl: 'https://wings2k26.com',
+    githubUrl: 'https://github.com/Rushikesh1821',
+    featured: true,
+  },
+  {
+    _id: '2',
     title: 'Remote Interview Platform',
     description: 'Developed a real-time coding interview platform with synchronized code editing and live host–participant collaboration using Socket.IO. Implemented REST APIs and deployed backend on cloud with optimized uptime and responsiveness.',
     images: ['/Remote-Interview.png'],
@@ -25,7 +34,7 @@ const fallbackProjects = [
     featured: true,
   },
   {
-    _id: '2',
+    _id: '3',
     title: 'AI Finance Tracker',
     description: 'Personal finance tracker managing income and categorized expenses. Designed CRUD workflows and summary insights for budgeting and spending trends.',
     images: ['/AiFinanceTracker.png'],
@@ -35,17 +44,7 @@ const fallbackProjects = [
     githubUrl: 'https://github.com/Rushikesh1821/FinanceTracker.git',
     featured: true,
   },
-  {
-    _id: '3',
-    title: 'College Placement Management System',
-    description: 'Designed and developed a comprehensive AI-enabled college placement management platform to automate and streamline the end-to-end campus recruitment process for students, recruiters, and Training & Placement Officers (TPOs).',
-    images: ['/Placeme.png'],
-    technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'AI/ML'],
-    category: 'fullstack',
-    liveUrl: 'https://example-aigenerator.com',
-    githubUrl: 'https://github.com/Rushikesh1821/placeme.git',
-    featured: true,
-  },
+  
   // {
   //   _id: '4',
   //   title: 'Real-Time Chat Application',
@@ -82,33 +81,9 @@ const fallbackProjects = [
 ];
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [projects] = useState(fallbackProjects);
+  const [filteredProjects, setFilteredProjects] = useState(fallbackProjects);
   const [activeCategory, setActiveCategory] = useState('all');
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get('/api/projects');
-        if (response.data.success && response.data.data.length > 0) {
-          setProjects(response.data.data);
-          setFilteredProjects(response.data.data);
-        } else {
-          setProjects(fallbackProjects);
-          setFilteredProjects(fallbackProjects);
-        }
-      } catch (error) {
-        console.log('Using fallback projects data');
-        setProjects(fallbackProjects);
-        setFilteredProjects(fallbackProjects);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
 
   useEffect(() => {
     if (activeCategory === 'all') {
@@ -152,30 +127,19 @@ const Projects = () => {
       </motion.div>
 
       {/* Projects Grid */}
-      {isLoading ? (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="aspect-video bg-dark-800 rounded-2xl animate-pulse"
-            />
+      <motion.div
+        layout
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project) => (
+            <ProjectCard key={project._id} project={project} />
           ))}
-        </div>
-      ) : (
-        <motion.div
-          layout
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project._id} project={project} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-      )}
+        </AnimatePresence>
+      </motion.div>
 
       {/* Empty state */}
-      {!isLoading && filteredProjects.length === 0 && (
+      {filteredProjects.length === 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
